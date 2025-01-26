@@ -113,12 +113,37 @@ alias vpn-down='sudo wg-quick down bilio-mint'
 
 # SSH alias
 alias connect-bilio='ssh bilio@192.168.1.79'
+alias connect-external-bilio='ssh bilio@188.83.240.159'
 
 # zshrc alias
-alias edit-zshrc='nano .zshrc'
-alias reload-zshrc='source .zshrc'
+alias edit-zshrc='nano ~/.zshrc'
+alias reload-zshrc='source ~/.zshrc'
 alias ask-software-engineer="fabric -p create_software_answer"
 alias ask-energy-logistics-business-mane"= fabric -p create_business_answer"
+alias create-meeting-note='~/daily-tools/scripts/create-meeting-note.sh'
+add() {
+    echo "$1" >> ~/Documents/Notes/quick-notes
+}
+
+alias open-notes='nvim ~/Documents/Notes/quick-notes'
+
+
+# Loop through all files in the ~/.config/fabric/patterns directory
+for pattern_file in $HOME/.config/fabric/patterns/*; do
+    # Get the base name of the file (i.e., remove the directory path)
+    pattern_name=$(basename "$pattern_file")
+
+    # Create an alias in the form: alias pattern_name="fabric --pattern pattern_name"
+    alias_command="alias $pattern_name='fabric --pattern $pattern_name'"
+
+    # Evaluate the alias command to add it to the current shell
+    eval "$alias_command"
+done
+
+yt() {
+    local video_link="$1"
+    fabric -y "$video_link" --transcript
+}
 
 
 export NVM_DIR="$HOME/.nvm"
